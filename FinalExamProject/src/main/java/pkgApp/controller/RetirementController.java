@@ -1,16 +1,12 @@
 package pkgApp.controller;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
-
 import org.apache.poi.ss.formula.functions.FinanceLib;
-
 import com.sun.prism.paint.Color;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,7 +52,6 @@ public class RetirementController implements Initializable {
 	public void setMainApp(RetirementApp mainApp) {
 		this.mainApp = mainApp;
 	}
-
 	public void initialize(URL location, ResourceBundle resources) {
 	}
 	
@@ -73,7 +68,7 @@ public class RetirementController implements Initializable {
 		txtWhatYouNeedToSave.clear();
 	}
 	@FXML
-	public void btnCalculate() {
+	public void btnCalculate(ActionEvent event) {
 		System.out.println("Calculating...");
 		txtSaveEachMonth.setDisable(false);
 		txtWhatYouNeedToSave.setDisable(false);
