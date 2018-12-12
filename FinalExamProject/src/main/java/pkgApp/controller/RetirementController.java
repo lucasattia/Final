@@ -58,61 +58,35 @@ public class RetirementController implements Initializable {
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {
-
-	
-		hmTextFieldRegEx.put(txtAnnualReturnWorking, "(0|0\\.[0-1]|0\\.[0][0-9]|\\.[0-1]|\\.[0][0-9])");
-		hmTextFieldRegEx.put(txtYearsRetired, "([0-9]|[1][0-9]|20)");
-		hmTextFieldRegEx.put(txtYearsToWork, "([0-9]|[1-3][0-9]|40)");
-		hmTextFieldRegEx.put(txtAnnualReturnRetired, "(0|0\\.[0-1]|0\\.[0][0-9]|\\.[0-1]|\\.[0][0-9])");
-		hmTextFieldRegEx.put(txtRequiredIncome, "(264[2-9]|26[5-9][0-9]|2[7-9][0-9]{2}|[3-9][0-9]{3}|10000)");
-		hmTextFieldRegEx.put(txtAnnualReturnWorking, "\\d*(\\.\\d*)?");
-		hmTextFieldRegEx.put(txtMonthlySSI, "([0-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|1[0-9]{3}|2[0-5][0-9]{2}|26[0-3][0-9]|264[0-2])");
-		hmTextFieldRegEx.put(txtYearsToWork, "\\d*?");
-
-		Iterator it = hmTextFieldRegEx.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			final TextField txtField = (TextField) pair.getKey();
-			final String strRegEx = (String) pair.getValue();
-
-			txtField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-				public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
-						Boolean newPropertyValue) {
-				
-					if (!newPropertyValue) {
-						if (!txtField.getText().matches(strRegEx)) {
-							txtField.setText("");
-							txtField.requestFocus();
-						}
-					}
-				}
-			});
-		}
-
 	}
-
+	
 	@FXML
 	public void btnClear(ActionEvent event) {
 		System.out.println("Clear pressed");
+		// Clear text input
+		txtYearsToWork.setText("");
+		txtAnnualReturnRetired.setText("");
+		txtYearsRetired.setText("");
+		txtAnnualReturnWorking.setText("");
+		txtRequiredIncome.setText("");
 		txtSaveEachMonth.clear();
 		txtWhatYouNeedToSave.clear();
-		Iterator it = hmTextFieldRegEx.entrySet().iterator();
-		while (it.hasNext()) {
-		Map.Entry pair = (Map.Entry) it.next();
-		TextField txtField = (TextField) pair.getKey();
-		txtField.clear();
-		txtField.setDisable(false);
-		}
 	}
 	@FXML
 	public void btnCalculate() {
-		System.out.println("calculating");
+		System.out.println("Calculating...");
 		txtSaveEachMonth.setDisable(false);
 		txtWhatYouNeedToSave.setDisable(false);
-		Retirement ret = new Retirement(Integer.parseInt(txtYearsToWork.getText()), Double.parseDouble(txtAnnualReturnWorking.getText()), Integer.parseInt(txtYearsRetired.getText()), 
-		Double.parseDouble(txtAnnualReturnRetired.getText()), Double.parseDouble(txtRequiredIncome.getText()), Double.parseDouble(txtMonthlySSI.getText()));
-		txtWhatYouNeedToSave.setText(Double.toString(ret.TotalAmountToSave()));
-		txtSaveEachMonth.setText(Double.toString(ret.MonthlySavings()));
+		int workingYears = Integer.parseInt(txtYearsToWork.getText());
+		double workingReturn = Double.parseDouble(txtAnnualReturnWorking.getText());
+		int yearsRetired = Integer.parseInt(txtYearsRetired.getText());
+		double retiredReturn = Double.parseDouble(txtAnnualReturnRetired.getText());
+		double reqIncome = Double.parseDouble(txtRequiredIncome.getText());
+		double monthlySSI = Double.parseDouble(txtMonthlySSI.getText());
+		Retirement retire = new Retirement(workingYears,workingReturn ,yearsRetired, retiredReturn, 
+		reqIncome, monthlySSI);
+		txtWhatYouNeedToSave.setText(Double.toString(retire.TotalAmountToSave()));
+		txtSaveEachMonth.setText(Double.toString(retire.MonthlySavings()));
 		txtSaveEachMonth.setDisable(true);
 		txtWhatYouNeedToSave.setDisable(true);
 	}
