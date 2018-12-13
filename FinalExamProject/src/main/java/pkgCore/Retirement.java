@@ -49,7 +49,7 @@ public class Retirement {
 		//	n = Number of payments.  Five years would be expressed as...  5 * 12...  or 60
 		//	y = PMT amount
 		//	f = Future value
-		//	t = boolean... when interest is calculated... we're going to use FALSE
+		//	t = boolean... when interest is calculated... use FALSE
 		return FinanceLib.pv(r, n, y, f, t);
 	}
 	public int getiYearsToWork() {

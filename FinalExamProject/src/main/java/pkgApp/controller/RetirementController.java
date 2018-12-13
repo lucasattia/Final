@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.TextFormatter;
@@ -27,13 +28,13 @@ public class RetirementController implements Initializable {
 
 	private RetirementApp mainApp = null;
 	@FXML
-	private TextField txtSaveEachMonth;
+	private Label txtSaveEachMonth;
 	@FXML
 	private TextField txtYearsToWork;
 	@FXML
 	private TextField txtAnnualReturnWorking;
 	@FXML
-	private TextField txtWhatYouNeedToSave;
+	private Label txtWhatYouNeedToSave;
 	@FXML
 	private TextField txtYearsRetired;
 	@FXML
@@ -64,14 +65,13 @@ public class RetirementController implements Initializable {
 		txtYearsRetired.setText("");
 		txtAnnualReturnWorking.setText("");
 		txtRequiredIncome.setText("");
-		txtSaveEachMonth.clear();
-		txtWhatYouNeedToSave.clear();
+		txtMonthlySSI.setText("");
 	}
 	@FXML
 	public void btnCalculate(ActionEvent event) {
 		System.out.println("Calculating...");
-		txtSaveEachMonth.setDisable(false);
-		txtWhatYouNeedToSave.setDisable(false);
+		//txtSaveEachMonth.setDisable(false);
+		//txtWhatYouNeedToSave.setDisable(false);
 		int workingYears = Integer.parseInt(txtYearsToWork.getText());
 		double workingReturn = Double.parseDouble(txtAnnualReturnWorking.getText());
 		int yearsRetired = Integer.parseInt(txtYearsRetired.getText());
@@ -82,7 +82,7 @@ public class RetirementController implements Initializable {
 		reqIncome, monthlySSI);
 		txtWhatYouNeedToSave.setText(Double.toString(retire.TotalAmountToSave()));
 		txtSaveEachMonth.setText(Double.toString(retire.MonthlySavings()));
-		txtSaveEachMonth.setDisable(true);
-		txtWhatYouNeedToSave.setDisable(true);
+		//txtSaveEachMonth.setDisable(true);
+		//txtWhatYouNeedToSave.setDisable(true);
 	}
 }
