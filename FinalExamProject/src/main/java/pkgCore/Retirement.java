@@ -3,7 +3,7 @@ package pkgCore;
 import org.apache.poi.ss.formula.functions.FinanceLib;
 
 public class Retirement {
-
+// Instance variables
 	private int iYearsToWork;
 	private double dAnnualReturnWorking;
 	private int iYearsRetired;
@@ -21,35 +21,18 @@ public class Retirement {
 		this.dRequiredIncome = dRequiredIncome;
 		this.dMonthlySSI = dMonthlySSI;
 	}
-
-	public double MonthlySavings() {
-
-		double pmt = PMT(dAnnualReturnWorking / 12, iYearsToWork * 12, 0, TotalAmountToSave()- dMonthlySSI, false);
-		return pmt;
-	}
 	public double TotalAmountToSave() {
-		
-		double pv = PV(dAnnualReturnRetired / 12, iYearsRetired * 12, dRequiredIncome - dMonthlySSI, 0, false);
-		return  -1*(Math.round(pv * 100.0) / 100.0);
+		// Calls PV method from finance lib
+		double pv = (int)(FinanceLib.pv(dAnnualReturnRetired / 12, iYearsRetired * 12, dMonthlySSI - dRequiredIncome,0,false)*100);
+		return (double) pv/100;
 	}
-
-	public static double PMT(double r, double n, double p, double f, boolean t) {
-		//	r = Rate
-		//	n = number of payments
-		//	p = present value
-		//	f = future value
-		//	t = boolean... when interest is calculated... we're going to use FALSE
-		return -1*(FinanceLib.pmt(r, n, p, f, t));
+	public double MonthlySavings() {
+		//Calls PMT method  from finance lib
+		double pmt = (int)(FinanceLib.pmt(dAnnualReturnWorking / 12, iYearsToWork * 12.0, 0, TotalAmountToSave(),false)*100);
+		// cut off decimal places
+		return -1*pmt/100;
 	}
-
-	public static double PV(double r, double n, double y, double f, boolean t) {
-		//	r = Rate.  7% would be expressed as...  0.07 / 12
-		//	n = Number of payments.  Five years would be expressed as...  5 * 12...  or 60
-		//	y = PMT amount
-		//	f = Future value
-		//	t = boolean... when interest is calculated... use FALSE
-		return FinanceLib.pv(r, n, y, f, t);
-	}
+	//getters and setters 
 	public int getiYearsToWork() {
 		return iYearsToWork;
 	}

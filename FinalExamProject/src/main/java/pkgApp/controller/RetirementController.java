@@ -44,18 +44,11 @@ public class RetirementController implements Initializable {
 	@FXML
 	private TextField txtMonthlySSI;
 
-	private HashMap<TextField, String> hmTextFieldRegEx = new HashMap<TextField, String>();
-
-	public RetirementApp getMainApp() {
-		return mainApp;
-	}
-
 	public void setMainApp(RetirementApp mainApp) {
 		this.mainApp = mainApp;
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 	}
-	
 	@FXML
 	public void btnClear(ActionEvent event) {
 		System.out.println("Clear pressed");
