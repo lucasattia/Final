@@ -70,8 +70,6 @@ public class RetirementController implements Initializable {
 	@FXML
 	public void btnCalculate(ActionEvent event) {
 		System.out.println("Calculating...");
-		//txtSaveEachMonth.setDisable(false);
-		//txtWhatYouNeedToSave.setDisable(false);
 		int workingYears = Integer.parseInt(txtYearsToWork.getText());
 		double workingReturn = Double.parseDouble(txtAnnualReturnWorking.getText());
 		int yearsRetired = Integer.parseInt(txtYearsRetired.getText());
@@ -82,7 +80,5 @@ public class RetirementController implements Initializable {
 		reqIncome, monthlySSI);
 		txtWhatYouNeedToSave.setText(Double.toString(retire.TotalAmountToSave()));
 		txtSaveEachMonth.setText(Double.toString(retire.MonthlySavings()));
-		//txtSaveEachMonth.setDisable(true);
-		//txtWhatYouNeedToSave.setDisable(true);
 	}
 }
