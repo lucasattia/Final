@@ -24,15 +24,13 @@ public class Retirement {
 
 	public double MonthlySavings() {
 
-		double pmt = PMT(dAnnualReturnWorking / 12, iYearsToWork * 12, 0, TotalAmountToSave(), false);
+		double pmt = PMT(dAnnualReturnWorking / 12, iYearsToWork * 12, 0, TotalAmountToSave()- dMonthlySSI, false);
 		return pmt;
 	}
-
 	public double TotalAmountToSave() {
 		
 		double pv = PV(dAnnualReturnRetired / 12, iYearsRetired * 12, dRequiredIncome - dMonthlySSI, 0, false);
-		
-		return  Math.round(pv * 100.0) / 100.0;
+		return  -1*(Math.round(pv * 100.0) / 100.0);
 	}
 
 	public static double PMT(double r, double n, double p, double f, boolean t) {
@@ -41,7 +39,7 @@ public class Retirement {
 		//	p = present value
 		//	f = future value
 		//	t = boolean... when interest is calculated... we're going to use FALSE
-		return FinanceLib.pmt(r, n, p, f, t);
+		return -1*(FinanceLib.pmt(r, n, p, f, t));
 	}
 
 	public static double PV(double r, double n, double y, double f, boolean t) {
